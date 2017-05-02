@@ -4,6 +4,7 @@
 #    Copyright (c) 2013 BroadTech IT Solutions.
 #    (http://wwww.broadtech-innovations.com)
 #    contact@boradtech-innovations.com
+#    Updated by: Humanytek-Team (https://github.com/humanytek-team)
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU General Public License as published by
@@ -22,25 +23,19 @@
 
 {
     'name': 'precio_en_dolares',
-    'version': '1.0',
+    'version': '10.0.0.1',
     'category': 'Product Management',
     'summary': 'Inherited for adding product changes',
-    'description': """
-Manage Product Category.
-=======================
-
-
-    """,
-    'author': 'Broadtech-innovations',
-    'depends': [ 'sale', 'product'],
-    'website': 'http://wwww.broadtech-innovations.com',
+    'author': 'Humanytek',
+    'website': 'http://humanytek.com/',
+    'depends': [
+        'sale',
+        'product',
+    ],
     'data': [
-             'views/product_view.xml',
-             'views/sale_view.xml',
-        ],
-    'qweb': [],
-    'installable': True,
-    'auto_install': False,
+        'views/product_view.xml',
+        'views/sale_view.xml',
+    ],
 }
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

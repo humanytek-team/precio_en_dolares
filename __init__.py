@@ -5,6 +5,8 @@
 #    (http://wwww.broadtech-innovations.com)
 #    contact@boradtech-innovations.com
 #
+#    Updated by: Humanytek-Team (https://github.com/humanytek-team)
+#
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU General Public License as published by
 #    the Free Software Foundation, either version 3 of the License, or
@@ -20,6 +22,6 @@
 #
 ##############################################################################
 
-import models
+from . import models
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

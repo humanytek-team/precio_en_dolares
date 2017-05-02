@@ -5,6 +5,8 @@
 #    (http://wwww.broadtech-innovations.com)
 #    contact@boradtech-innovations.com
 #
+#    Updated by: Humanytek-Team (https://github.com/humanytek-team)
+#
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU General Public License as published by
 #    the Free Software Foundation, either version 3 of the License, or
@@ -20,11 +22,16 @@
 #
 ##############################################################################
 
-from openerp import fields, models, api
+from odoo import fields, models, _
+
 
 class sale_order_line(models.Model):
     _inherit = 'sale.order.line'
-    
-    currency_id = fields.Many2one('res.currency', string='Currency', related='product_id.currency_id')
-    
+
+    currency_id = fields.Many2one(
+        comodel_name="res.currency",
+        string=_('Currency'),
+        related='product_id.currency_id',
+    )
+
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

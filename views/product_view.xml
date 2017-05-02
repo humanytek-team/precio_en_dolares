@@ -1,149 +1,16 @@
 <?xml version="1.0"?>
 <openerp>
-    <data>
-    
-        <!-- base structure of product.template, common with product.product -->
-        <record id="product.product_template_form_view" model="ir.ui.view">
-            <field name="name">product.template.common.form</field>
-            <field name="model">product.template</field>
-            <field name="mode">primary</field>
-            <field name="arch" type="xml">
-                <form string="Product">
-                    <field name="is_product_variant" invisible="1"/>
-                    <field name='product_variant_count' invisible='1'/>
-                    <sheet>
-                        <field name="id" invisible="True"/>
-                        <div class="oe_right oe_button_box" style="width: 300px;" name="buttons">
-                        </div>
-                        <div class="oe_left" style="width: 500px;">
-                            <field name="image_medium" widget="image" class="oe_avatar oe_left"/>
-                            <div class="oe_title" style="width: 390px;">
-                                <label class="oe_edit_only" for="name" string="Product Name"/>
-                                <h1><field name="name" class="oe_inline"/></h1>
-                            </div>
-                            <div class="oe_left" name="options" groups="base.group_user">
-                                <div>
-                                    <field name="sale_ok"/>
-                                    <label for="sale_ok"/>
-                                </div>
-                            </div>
-                        </div>
-                        <notebook>
-                            <page string="Information">
-                                <group colspan="4">
-                                    <group>
-                                        <field name="type" on_change="onchange_type(type)"/>
-                                        <field name="uom_id" on_change="onchange_uom(uom_id,uom_po_id)" groups="product.group_uom"/>
-                                    </group>
-                                    <group>
-                                        <field name="active"/>
-                                    </group>
-                                </group>
-                                <group colspan="4" col="4">
-                                  	<field name="list_price"/>
-                                  	<field name="currency_id"/>
-                                </group>
-                                <group colspan="4">
-                                    <field name="company_id" groups="base.group_multi_company" widget="selection"/>
-                                </group>
-                                <field name="description" placeholder="describe the product characteristics..."/>
-                            </page>
-                            <page string="Procurements" groups="base.group_user">
-                                <group name="procurement">
-                                    <group name="general">
-                                        <field name="standard_price"/>
-                                    </group>
-                                    <group name="procurement_uom" groups="product.group_uom" string="Purchase">
-                                        <field name="uom_po_id"/>
-                                    </group>
-                                </group>
-                                <separator string="Suppliers"/>
-                                <field name="seller_ids"/>
-                                <separator string="Description for Suppliers"/>
-                                <field name="description_purchase" placeholder="This note will be displayed on requests for quotation..."/>
-                            </page>
-                            <page string="Inventory">
-                                <group name="inventory">
-                                     <group name="status" string="Status">
-                                        <field name="state"/>
-                                        <field name="product_manager"/>
-                                    </group>
-                                    <group name="weight" string="Weights" attrs="{'invisible':[('type','=','service')]}">
-                                        <field digits="(14, 3)" name="volume"/>
-                                        <field name="weight"/>
-                                        <field name="weight_net"/>
-                                    </group>
-                                </group>
-                                <group name="packaging" string="Packaging" attrs="{'invisible':[('type','=','service')]}" groups="product.group_stock_packaging" colspan="4">
-                                    <field name="packaging_ids" string="Configurations" context="{'tree_view_ref':'product.product_packaging_tree_view_product', 'form_view_ref': 'product.product_packaging_form_view_without_product'}"/>
-                                </group>
-                            </page>
-                            <page string="Sales" attrs="{'invisible':[('sale_ok','=',False)]}" name="sales">
-                                <group name="sale">
-                                    <group name="sale_condition" string="Sale Conditions" colspan="3">
-                                        <label for="warranty"/>
-                                        <div>
-                                            <field name="warranty" class="oe_inline"/> months
-                                        </div>
-                                    </group>
-                                    <group groups="product.group_uos" string="Unit of Measure">
-                                        <field name="uos_id"/>
-                                        <field name="uos_coeff"/>
-                                        <field name="mes_type"/>
-                                    </group>
-                                </group>
-                                <group name="website_and_pos" col="2">
-                                </group>
-                                <separator string="Description for Quotations"/>
-                                <field name="description_sale" placeholder="note to be displayed on quotations..."/>
-                            </page>
-                        </notebook>
-                    </sheet>
-                    <div class="oe_chatter">
-                        <field name="message_follower_ids" widget="mail_followers"/>
-                        <field name="message_ids" widget="mail_thread"/>
-                    </div>
-                </form>
-            </field>
-        </record>
-        
-        <record id="product.product_template_kanban_view" model="ir.ui.view">
-            <field name="name">Product.template.product.kanban</field>
-            <field name="model">product.template</field>
-            <field name="arch" type="xml">
-                <kanban>
-                    <field name="image_small"/>
-                    <field name="lst_price"/>
-                    <field name="is_product_variant"/>
-                    <field name="product_variant_count"/>
-                    <field name="product_variant_ids"/>
-                    <templates>
-                        <t t-name="kanban-box">
-                            <div class="oe_kanban_vignette oe_semantic_html_override">
-                                <a type="open"><img t-att-src="kanban_image('product.template', 'image_small', record.id.value)" class="oe_kanban_image"/></a>
-                                <div class="oe_kanban_details">
-                                    <h4>
-                                        <a type="open">
-                                             <span t-if="record.default_code.value">
-                                                 [<field name="default_code"/>]
-                                              </span>
-                                             <field name="name"/> 
-                                        </a>
-                                    </h4>
-                                    <a name="%(product.product_variant_action)d" type="action">
-                                        <t t-esc="record.product_variant_count.value"/> Variants
-                                    </a>
-                                    <div name="tags"/>
-                                    <ul>
-                                        <li>Price: <field name="lst_price"></field><field name="currency_id" nolabel="1"/></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </t>
-                    </templates>
-                </kanban>
-            </field>
-        </record>
-    
-    </data>
+  <data>
+    <!-- base structure of product.template, common with product.product -->
+    <record id="product.product_template_form_view2" model="ir.ui.view">
+      <field name="name">product.template.common.form</field>
+      <field name="model">product.template</field>
+      <field name="inherit_id" ref="product.product_template_form_view"/>
+      <field name="arch" type="xml">
+        <field name="list_price" position="after">
+          <field name="currency_id"/>
+        </field>
+      </field>
+    </record>
+  </data>
 </openerp>

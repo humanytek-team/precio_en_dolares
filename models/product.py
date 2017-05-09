@@ -30,6 +30,7 @@ class product_template(models.Model):
 
     currency_id = fields.Many2one(
         comodel_name='res.currency',
+        readonly=False,
         string=_('Currency'),
     )
 

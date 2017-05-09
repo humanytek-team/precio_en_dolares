@@ -7,7 +7,7 @@
       <field name="inherit_id" ref="sale.view_order_form"/>
       <field name="arch" type="xml">
         <xpath expr="//field[@name='order_line']/tree/field[@name='price_subtotal']" position="after">
-          <field name="currency_id"/>
+          <field name="currency_id_visual"/>
         </xpath>
       </field>
     </record>

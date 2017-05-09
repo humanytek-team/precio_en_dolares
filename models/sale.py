@@ -28,10 +28,10 @@ from odoo import fields, models, _
 class sale_order_line(models.Model):
     _inherit = 'sale.order.line'
 
-    currency_id = fields.Many2one(
+    currency_id_visual = fields.Many2one(
         comodel_name="res.currency",
         string=_('Currency'),
-        related='product_id.currency_id',
+        related='product_id.currency_id_visual',
     )
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

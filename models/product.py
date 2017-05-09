@@ -28,7 +28,7 @@ from odoo import fields, models, _
 class product_template(models.Model):
     _inherit = 'product.template'
 
-    currency_id = fields.Many2one(
+    currency_id_visual = fields.Many2one(
         comodel_name='res.currency',
         readonly=False,
         string=_('Currency'),
